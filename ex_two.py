@@ -145,10 +145,25 @@ direction=-1
 n=100
 
 Dx,Dy,t,a,D=cardioida(D,T,B,n,direction)
-fig,ax=plt.subplots()
-ax = plt.axes(polar=True)
-ax.plot(a,D)
-fig.savefig('Кардиоида.jpg',dpi=1000)
+fig1,ax1=plt.subplots()
+ax1 = plt.axes(polar=True)
+ax1.plot(a[0:n//4],D[0:n//4])
+fig1.savefig('Кардиоида1.jpg',dpi=1000)
+
+fig2,ax2=plt.subplots()
+ax2 = plt.axes(polar=True)
+ax2.plot(a[0:n//2],D[0:n//2])
+fig2.savefig('Кардиоида2.jpg',dpi=1000)
+
+fig3,ax3=plt.subplots()
+ax3 = plt.axes(polar=True)
+ax3.plot(a[0:3*n//4],D[0:3*n//4])
+fig3.savefig('Кардиоида3.jpg',dpi=1000)
+
+fig4,ax4=plt.subplots()
+ax4 = plt.axes(polar=True)
+ax4.plot(a,D)
+fig4.savefig('Кардиоида.jpg',dpi=1000)
 
 R1=R1*(1+dR*np.sin(2*np.pi*t/T))
 R2=R2*(1+dR*np.sin(2*np.pi*t/T))
@@ -156,28 +171,6 @@ R2=R2*(1+dR*np.sin(2*np.pi*t/T))
 fiL,fiR,fiF,V1,V2,V3,VL,VR,VF=analiz2(Dx,Dy,Dz,r1,r2,r23,r3,R1,R2,R3)
 for i in fiL,fiR,fiF,V1,V2,V3,VL,VR,VF:
     i*=1000
-'''
-fiL=[]
-for i in range (len(t)):
-    fiL.append(f(Dx[i],Dy[i],Dz,r1,r2,r23,r3,R1[i],R2[i],R3,(R1[i]+R2[i])/2,np.pi/2,np.pi/6))
-fiL=np.array(fiL)
-
-fiR=[]
-for i in range (len(t)):
-    fiR.append(f(Dx[i],Dy[i],Dz,r1,r2,r23,r3,R1[i],R2[i],R3,(R1[i]+R2[i])/2,np.pi/2,5*np.pi/6))
-fiR=np.array(fiR)
-
-fiF=[]
-for i in range (len(t)):
-    fiF.append(f(Dx[i],Dy[i],Dz,r1,r2,r23,r3,R1[i],R2[i],R3,(R1[i]+R2[i])/2,np.pi/2,-1*np.pi/2))
-fiF=np.array(fiF)
-
-V1=fiL-fiR
-V2=fiF-fiR
-V3=fiF-fiL
-VL=fiL-(fiR+fiF)/2
-VR=fiR-(fiF+fiL)/2
-VF=fiF-(fiL+fiR)/2'''
 
 dR=0.1
 R1=R1*(1+dR*np.sin(2*np.pi*t/T))
