@@ -129,6 +129,11 @@ def analiz2(Dx,Dy,Dz,r1,r2,r23,r3,R1,R2,R3):
     
     return fiL,fiR,fiF,V1,V2,V3,VL,VR,VF
 
+def segment (a,D,ax):
+    a=[a,a]
+    D=[0,D]
+    ax.plot(a,D,'r')
+
 T=1
 D=1.7*10**(-5)
 Dz=0.3*10**(-5)
@@ -145,23 +150,33 @@ direction=-1
 n=100
 
 Dx,Dy,t,a,D=cardioida(D,T,B,n,direction)
+
 fig1,ax1=plt.subplots()
 ax1 = plt.axes(polar=True)
-ax1.plot(a[0:n//4],D[0:n//4])
+segment(a[0],D[0],ax1)
+fig1.savefig('Кардиоида0.jpg',dpi=1000)
+
+fig1,ax1=plt.subplots()
+ax1 = plt.axes(polar=True)
+ax1.plot(a[0:n//4+1],D[0:n//4+1])
+segment(a[n//4],D[n//4],ax1)
 fig1.savefig('Кардиоида1.jpg',dpi=1000)
 
 fig2,ax2=plt.subplots()
 ax2 = plt.axes(polar=True)
-ax2.plot(a[0:n//2],D[0:n//2])
+ax2.plot(a[0:n//2+1],D[0:n//2+1])
+segment(a[n//2],D[n//2],ax2)
 fig2.savefig('Кардиоида2.jpg',dpi=1000)
 
 fig3,ax3=plt.subplots()
 ax3 = plt.axes(polar=True)
-ax3.plot(a[0:3*n//4],D[0:3*n//4])
+ax3.plot(a[0:3*n//4+1],D[0:3*n//4+1])
+segment(a[3*n//4],D[3*n//4],ax3)
 fig3.savefig('Кардиоида3.jpg',dpi=1000)
 
 fig4,ax4=plt.subplots()
 ax4 = plt.axes(polar=True)
+segment(a[n-1],D[n-1],ax4)
 ax4.plot(a,D)
 fig4.savefig('Кардиоида.jpg',dpi=1000)
 
