@@ -94,7 +94,7 @@ def f (Dx=1.7*10**(-5),Dy=1.7*10**(-5),Dz=0.3*10**(-5),r1=1.5,r2=3.5,r23=0.1,r3=
     fix=((Dx*r2)/(4*np.pi*R3**2)+cofx[8]*R3+cofx[9]/R3**2)*np.sin(tet)*np.cos(psi)+((Dx*r2*R0)/(4*np.pi*R3**3)+cofx[10]*R3**2+cofx[11]/R3**3)*(3/2*np.cos(2*tet))*np.cos(psi)
     fiy=((Dy*r2)/(4*np.pi*R3**2)+cofy[8]*R3+cofy[9]/R3**2)*np.sin(tet)*np.sin(psi)+((Dy*r2*R0)/(4*np.pi*R3**3)+cofy[10]*R3**2+cofy[11]/R3**3)*(3/2*np.cos(2*tet))*np.sin(psi)
     fiz=((Dz*r2)/(4*np.pi*R3**2)+cofz[8]*R3+cofz[9]/R3**2)*np.cos(tet)+((2*Dz*r2*R0)/(4*np.pi*R3**3)+cofz[10]*R3**2+cofz[11]/R3**3)*(1/4*(3*np.cos(2*tet)+1))
-    return(fix+fiy)
+    return(fix+fiy+fiz)
 
 def cardioida (D=1.7*10**(-5),T=1,B=-np.pi/2,n=1000,direction=-1,pol=0):
     t=np.linspace(0,T,n)
@@ -134,6 +134,18 @@ def segment (a,D,ax):
     D=[0,D]
     ax.plot(a,D,'r')
 
+def triangle (R,ax):
+    a1=[5*np.pi/6,np.pi/6]
+    a2=[5*np.pi/6,-np.pi/2]
+    a3=[np.pi/6,-np.pi/2]
+    se=[R,R]
+    ax.plot(a1,se,'g')
+    ax.plot(a2,se,'g')
+    ax.plot(a3,se,'g')
+    ax.text(5*np.pi/6-np.pi/60,R,'RA',fontsize=12)
+    ax.text(np.pi/6+np.pi/30,R-R*0.1,'LA',fontsize=12)
+    ax.text(-np.pi/2+np.pi/30,R,'LL',fontsize=12)
+
 T=1
 D=1.7*10**(-5)
 Dz=0.3*10**(-5)
@@ -148,36 +160,42 @@ dR=0.
 B=-np.pi/2
 direction=-1
 n=100
+D1=D
 
 Dx,Dy,t,a,D=cardioida(D,T,B,n,direction)
 
 fig1,ax1=plt.subplots()
 ax1 = plt.axes(polar=True)
 segment(a[0],D[0],ax1)
+triangle(D1+D1/4,ax1)
 fig1.savefig('Кардиоида0.jpg',dpi=1000)
 
 fig1,ax1=plt.subplots()
 ax1 = plt.axes(polar=True)
 ax1.plot(a[0:n//4+1],D[0:n//4+1])
 segment(a[n//4],D[n//4],ax1)
+triangle(D1+D1/4,ax1)
 fig1.savefig('Кардиоида1.jpg',dpi=1000)
 
 fig2,ax2=plt.subplots()
 ax2 = plt.axes(polar=True)
 ax2.plot(a[0:n//2+1],D[0:n//2+1])
 segment(a[n//2],D[n//2],ax2)
+triangle(D1+D1/4,ax2)
 fig2.savefig('Кардиоида2.jpg',dpi=1000)
 
 fig3,ax3=plt.subplots()
 ax3 = plt.axes(polar=True)
 ax3.plot(a[0:3*n//4+1],D[0:3*n//4+1])
 segment(a[3*n//4],D[3*n//4],ax3)
+triangle(D1+D1/4,ax3)
 fig3.savefig('Кардиоида3.jpg',dpi=1000)
 
 fig4,ax4=plt.subplots()
 ax4 = plt.axes(polar=True)
 segment(a[n-1],D[n-1],ax4)
 ax4.plot(a,D)
+triangle(D1+D1/4,ax4)
 fig4.savefig('Кардиоида.jpg',dpi=1000)
 
 R1=R1*(1+dR*np.sin(2*np.pi*t/T))
